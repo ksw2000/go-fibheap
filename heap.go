@@ -1,13 +1,16 @@
-// Package fibheap implements a Fibonacci heap. The amortized time complexity of
-// Fibonacci heap operations are as follows:
+// Package fibheap implements a Fibonacci heap.
+// A Fibonacci heap is a data structure for priority queue operations,
+// consisting of a collection of heap-ordered trees. The amortized time
+// complexity of Fibonacci heap operations are as follows:
 // fetching the minimum is Θ(1),
 // extracting the minimum is O(log n),
 // inserting is Θ(1),
 // decreasing a key is Θ(1),
 // and merging two heaps is Θ(1).
 //
-// In the Fibonacci heap, all elements have unique key values.
-// Our implementation does not perform any additional checks.
+// In our implementation, we do not additionally track the key value of each
+// element. Therefore, users should be aware that they should not insert
+// elements with the same key into the Fibonacci heap.
 package fibheap
 
 import (
@@ -83,10 +86,10 @@ func (h *Heap[K, V]) Size() int {
 	return h.elements
 }
 
-// Insert inserts the key-value pair (k, v) to the heap h
-// and returns the inserted element
-func (h *Heap[K, V]) Insert(k K, v V) *Element[K, V] {
-	n := &Element[K, V]{key: k, Value: v}
+// Insert inserts the key-value pair (key, value) to the heap h and returns the
+// inserted element with amortized running time Θ(1)
+func (h *Heap[K, V]) Insert(key K, value V) *Element[K, V] {
+	n := &Element[K, V]{key: key, Value: value}
 	h.elements++
 	h.min = h.min.append(n)
 	if n.key < h.min.key {
@@ -100,8 +103,8 @@ func (h *Heap[K, V]) Min() *Element[K, V] {
 	return h.min
 }
 
-// ExtractMin() fetches and removes the minimum key from the heap h
-// with amortized running time O(log n)
+// ExtractMin() fetches and removes the minimum key from the heap h with
+// amortized running time O(log n)
 func (h *Heap[K, V]) ExtractMin() *Element[K, V] {
 	if h == nil || h.min == nil {
 		return nil
@@ -199,9 +202,8 @@ func (h *Heap[K, V]) link(y, x *Element[K, V]) {
 	y.clearMark()
 }
 
-// Decreasing decreases the key of element with the minimum key
-// with amortized running time Θ(1).
-// If the new key k is larger or equal than the key of x,
+// Decreasing decreases the key of element with the minimum key with amortized
+// running time Θ(1). If the new key k is larger or equal than the key of x,
 // Decreasing does nothing.
 func (h *Heap[K, V]) Decreasing(x *Element[K, V], key K) {
 	if key >= x.key {
@@ -218,8 +220,8 @@ func (h *Heap[K, V]) Decreasing(x *Element[K, V], key K) {
 	}
 }
 
-// Remove removes the element x by given a key minimumKey which is
-// smaller than any key in the heap h.
+// Remove removes the element x by given a key minimumKey which is smaller than
+// any key in the heap h.
 func (h *Heap[K, V]) Remove(x *Element[K, V], minimumKey K) {
 	h.Decreasing(x, minimumKey)
 	if n := h.Min(); n != x {
@@ -228,8 +230,7 @@ func (h *Heap[K, V]) Remove(x *Element[K, V], minimumKey K) {
 	h.ExtractMin()
 }
 
-// cut cuts the link between x and its parent p
-// and makes x a root.
+// cut cuts the link between x and its parent p and makes x a root.
 func (h *Heap[K, V]) cut(x, p *Element[K, V]) {
 	p.decreaseDegree()
 
@@ -265,8 +266,8 @@ func (h *Heap[K, V]) cascadingCut(y *Element[K, V]) {
 	}
 }
 
-// Union unions the two fibonacci heaps h and g,
-// and returns the new fibonacci heap with amortized running time Θ(1).
+// Union unions the two fibonacci heaps h and g, and returns the new fibonacci
+// heap with amortized running time Θ(1).
 func (h *Heap[K, V]) Union(g *Heap[K, V]) *Heap[K, V] {
 	if h == nil || g == nil {
 		panic("fibheap: Union expects non-nil heap h and g")
