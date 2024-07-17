@@ -89,4 +89,11 @@ func TestUnion(t *testing.T) {
 		x := k.ExtractMin()
 		assert(t, x.Key(), i)
 	}
+
+	if h.min != nil || h.elements != 0 {
+		t.Fatal("h should be clear after Union")
+	}
+	if g.min != nil || g.elements != 0 {
+		t.Fatal("g should be clear after Union")
+	}
 }

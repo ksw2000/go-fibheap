@@ -267,7 +267,8 @@ func (h *Heap[K, V]) cascadingCut(y *Element[K, V]) {
 }
 
 // Union unions the two fibonacci heaps h and g, and returns the new fibonacci
-// heap with amortized running time Θ(1).
+// heap with amortized running time Θ(1). The heap h and g will be reset after
+// unioning.
 func (h *Heap[K, V]) Union(g *Heap[K, V]) *Heap[K, V] {
 	if h == nil || g == nil {
 		panic("fibheap: Union expects non-nil heap h and g")
@@ -294,6 +295,12 @@ func (h *Heap[K, V]) Union(g *Heap[K, V]) *Heap[K, V] {
 	} else {
 		m.min = g.min
 	}
+
+	// clear heap h and heap g
+	h.min = nil
+	h.elements = 0
+	g.min = nil
+	g.elements = 0
 
 	return m
 }
