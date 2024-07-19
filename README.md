@@ -1,6 +1,9 @@
 # High-Efficiency Fibonacci Heap
 
-[![GoRef](https://img.shields.io/badge/Go-reference-blue?style=flat-square&color=blue)](https://godoc.org/github.com/ksw2000/go-fibheap)[![Go Report Card](https://goreportcard.com/badge/github.com/ksw2000/go-fibheap?style=flat-square)](https://goreportcard.com/report/github.com/ksw2000/go-fibheap)![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/ksw2000/go-fibheap?style=flat-square&color=green)![GitHub License](https://img.shields.io/github/license/ksw2000/go-fibheap?style=flat-square&color=yellow)
+[![GoRef](https://img.shields.io/badge/Go-reference-blue?style=flat-square&color=blue)](https://godoc.org/github.com/ksw2000/go-fibheap)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ksw2000/go-fibheap?style=flat-square)](https://goreportcard.com/report/github.com/ksw2000/go-fibheap)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/ksw2000/go-fibheap?style=flat-square&color=green)
+![GitHub License](https://img.shields.io/github/license/ksw2000/go-fibheap?style=flat-square&color=yellow)
 
 
 Package fibheap implements a Fibonacci heap. A Fibonacci heap is a data structure for priority queue operations, consisting of a collection of heap-ordered trees.
